@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Announcement index{% endblock %}
+
+{% block body %}
+    <h1>Announcement index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Message</th>
+                <th>Closing_date</th>
+                <th>Status</th>
+                <th>Opening_date</th>
+                <th>Created_at</th>
+                <th>Updated_at</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for announcement in announcements %}
+            <tr>
+                <td>{{ announcement.id }}</td>
+                <td>{{ announcement.title }}</td>
+                <td>{{ announcement.message }}</td>
+                <td>{{ announcement.closingDate ? announcement.closingDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ announcement.status }}</td>
+                <td>{{ announcement.openingDate ? announcement.openingDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ announcement.createdAt ? announcement.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ announcement.updatedAt ? announcement.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_announcement_show', {'id': announcement.id}) }}">show</a>
+                    <a href="{{ path('app_announcement_edit', {'id': announcement.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_announcement_new') }}">Create new</a>
+{% endblock %}
